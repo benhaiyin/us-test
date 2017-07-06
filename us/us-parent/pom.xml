@@ -66,7 +66,7 @@
 
 	<dependencies>
 	    <!-- US MODULES begin -->
-	    <dependency>
+	    <!-- <dependency>
 			<groupId>com.us</groupId>
 			<artifactId>us-core</artifactId>
 			<version>${us.version}</version>
@@ -77,7 +77,7 @@
 			<artifactId>us-extension</artifactId>
 			<version>${us.version}</version>
 			<scope>compile</scope>
-		</dependency>
+		</dependency> -->
 		 <!-- US MODULES end -->
 		 
 		 <!-- 公共包 -->	

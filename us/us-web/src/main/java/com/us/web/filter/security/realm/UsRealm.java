@@ -91,6 +91,8 @@ public class UsRealm extends AuthorizingRealm{
 				{
 					throw new UnknownAccountException();// 没找到帐号
 				}
+				Subject currentUser = SecurityUtils.getSubject();
+				currentUser.getSession().setAttribute(user.getMobile(), user);
 				return new SimpleAuthenticationInfo(user.getMobile(), user.getPassword(), getName());
 			}
 			else

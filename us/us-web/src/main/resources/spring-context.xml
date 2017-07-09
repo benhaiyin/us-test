@@ -94,7 +94,7 @@
 	<bean id="transactionManager" class="com.us.dao.datasource.DataTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<import resource="classpath:cache/spring-config-cache.xml" />
 	

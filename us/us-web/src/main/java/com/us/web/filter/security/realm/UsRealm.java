@@ -19,6 +19,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 
+import com.us.common.Constants;
 import com.us.info.user.UserInfo;
 import com.us.info.user.UserToken;
 import com.us.service.user.UserService;
@@ -48,7 +49,7 @@ public class UsRealm extends AuthorizingRealm{
 		String token = (String) principal.getPrimaryPrincipal();
 		Subject subject = SecurityUtils.getSubject();
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-		UserInfo userInfo = (UserInfo) subject.getSession().getAttribute(token);
+		UserInfo userInfo = (UserInfo) subject.getSession().getAttribute(Constants.TOKEN);
 		if(null!=userInfo){
 			//获取用户的角色 roles | 授权  permissions
 			Collection<String> roles = new HashSet<String>();
@@ -67,39 +68,25 @@ public class UsRealm extends AuthorizingRealm{
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken autheToken) throws AuthenticationException {
-		if (autheToken instanceof UserToken)
+		
+		UsernamePasswordToken token = (UsernamePasswordToken) autheToken;
+		String name = token.getUsername();
+		if (StringUtils.isNotBlank(name))
 		{
-			UserToken userToken = (UserToken) autheToken;
-			UserInfo userInfo = userService.getUserInfo(userToken.getAccessToken());
-			if (null == userInfo)
+			UserInfo user = userService.getUserByMobile(name);
+			if (null == user)
 			{
 				throw new UnknownAccountException();// 没找到帐号
 			}
-			
 			Subject currentUser = SecurityUtils.getSubject();
-			currentUser.getSession().setAttribute(userToken.getAccessToken(), userInfo);
-			return new SimpleAuthenticationInfo(userToken.getAccessToken(), userToken.getAccessToken(), getName());
+			currentUser.getSession().setAttribute(Constants.TOKEN, user);
+			return new SimpleAuthenticationInfo(user.getMobile(), user.getPassword(), getName());
 		}
 		else
 		{
-			UsernamePasswordToken token = (UsernamePasswordToken) autheToken;
-			String name = token.getUsername();
-			if (StringUtils.isNotBlank(name))
-			{
-				UserInfo user = userService.getUserByMobile(name);
-				if (null == user)
-				{
-					throw new UnknownAccountException();// 没找到帐号
-				}
-				Subject currentUser = SecurityUtils.getSubject();
-				currentUser.getSession().setAttribute(user.getMobile(), user);
-				return new SimpleAuthenticationInfo(user.getMobile(), user.getPassword(), getName());
-			}
-			else
-			{
-				throw new UnknownAccountException();// 没找到帐号
-			}
+			throw new UnknownAccountException();// 没找到帐号
 		}
+		
 	}
 	
 	@Override

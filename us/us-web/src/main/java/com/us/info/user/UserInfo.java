@@ -1,6 +1,7 @@
 package com.us.info.user;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class UserInfo implements Serializable {
 	
@@ -10,6 +11,10 @@ public class UserInfo implements Serializable {
 	private String userId;
 	private String password;
 	private String mobile;
+	
+	private String userToken;
+	
+	private String arrUserToken;
 	
 	public UserInfo(String userName,String userId){
 		this.userName = userName;
@@ -49,6 +54,22 @@ public class UserInfo implements Serializable {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getUserToken() {
+		return userToken;
+	}
+
+	public void setUserToken(String userToken) {
+		this.userToken = userToken;
+	}
+
+	public String getArrUserToken() {
+		return arrUserToken;
+	}
+
+	public void setArrUserToken(String arrUserToken) {
+		this.arrUserToken = arrUserToken;
 	}
 	
 }

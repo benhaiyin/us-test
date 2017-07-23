@@ -19,12 +19,12 @@ import java.io.IOException;
  */
 public class CharacterEncodingIPFilter extends CharacterEncodingFilter {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CharacterEncodingIPFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(CharacterEncodingIPFilter.class);
 
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        recordIP(request);
+    	recordIP(request);
         accessOrigin(response);
         super.doFilterInternal(request, response, filterChain);
     }
@@ -32,7 +32,7 @@ public class CharacterEncodingIPFilter extends CharacterEncodingFilter {
     private void recordIP(HttpServletRequest request) {
         final String ip = WebUtils.retrieveClientIp(request);
         WebUtils.setIp(ip);
-        LOG.debug("Send request uri: {}, from IP: {}", request.getRequestURI(), ip);
+        logger.debug("Send request uri: {}, from IP: {}", request.getRequestURI(), ip);
     }
     
     private void accessOrigin(HttpServletResponse response){

@@ -1,8 +1,4 @@
-package com.us.service.cache.impl;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+package com.ydf.service.impl;
 
 import javax.annotation.Resource;
 
@@ -12,9 +8,8 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.support.SimpleValueWrapper;
 import org.springframework.stereotype.Service;
 
-import com.us.service.cache.CacheService;
+import com.ydf.service.CacheService;
 
-import net.sf.ehcache.Ehcache;
 
 @Service
 public class CacheServiceImpl implements CacheService{
@@ -28,12 +23,11 @@ public class CacheServiceImpl implements CacheService{
 		
 		if(cach!=null){
 			ValueWrapper value = cach.get(key);
-			if (value!=null && value instanceof SimpleValueWrapper)
+			if (value instanceof SimpleValueWrapper)
 			{
 				return ((SimpleValueWrapper) value).get();
 			}	
 		}
-		keys();
 		return null;
 	}
 
@@ -49,8 +43,4 @@ public class CacheServiceImpl implements CacheService{
 		captchaCache.evict(key);
 	}
 
-	public void keys () {
-		Collection<String> ehcache = cacheManager.getCacheNames();
-		System.out.println(ehcache.size());
-	}
 }

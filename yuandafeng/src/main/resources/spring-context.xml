@@ -26,7 +26,7 @@
 	
 	<!-- 加载配置属性文件 -->
 	<!-- context:property-placeholder ignore-unresolvable="true" location="classpath*:/mis.properties" / -->
-    <bean id="propertyConfiger"  class="com.us.core.security.spring.DecryptPropertyPlaceholderConfigurer">
+    <bean id="propertyConfiger"  class="com.ydf.core.security.spring.DecryptPropertyPlaceholderConfigurer">
    		 <property name="ignoreUnresolvablePlaceholders" value="true"/>
          <property name="locations">
              <list>
@@ -36,7 +36,7 @@
     </bean>
 	
 	<!-- 使用Annotation自动注册Bean，解决事务失效问题，在主容器中不扫描以@Controller注解，在SpringMVC中只扫描@Controller注解 -->
-	<context:component-scan base-package="com.us.*">
+	<context:component-scan base-package="com.ydf.*">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	<!-- 数据源配置，使用druid数据连接池 -->
@@ -75,7 +75,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
-		<property name="typeAliasesPackage" value="com.us.model" />
+		<property name="typeAliasesPackage" value="com.ydf.model" />
 		<!-- mybatis 公共的配置 -->
 		<property name="configLocation" value="classpath:/mybatis-config.xml" />
 		<!-- 自动扫描映射文件 -->

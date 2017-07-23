@@ -9,10 +9,12 @@ import javax.servlet.ServletResponse;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.CollectionUtils;
 import org.apache.shiro.web.filter.AccessControlFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class AccessVerificationFilter extends AccessControlFilter{
-
+	private static Logger logger = LoggerFactory.getLogger(AccessVerificationFilter.class);
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
 		Subject subject = getSubject(request, response);  

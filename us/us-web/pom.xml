@@ -14,7 +14,6 @@
   <properties>
 
 		<alibaba-druid-version>1.0.12</alibaba-druid-version>
-		
 		<mybatis.version>3.2.5</mybatis.version>
 		<mybatis-spring.version>1.2.2</mybatis-spring.version>
 		<mybatis-ehcache.version>1.0.0</mybatis-ehcache.version>
